@@ -10,6 +10,6 @@ mdot = 1496  # [kg/s], mass flow rate
 # for mass, see mass(t) equation in ./equations.py/
 
 
-# part_a-specific variables
+
 
 
