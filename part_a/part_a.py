@@ -1,18 +1,34 @@
 # a. Examine M_e variation with Ae/A* (from 1-1000) for varying g_e (between 1.28-1.2 in steps of 0.01).
 
-import a_functions as fn
-import a_constants as k
 from sympy import *
+import numpy as np
+import matplotlib.pyplot as plt
+import a_functions as f_a
+import a_constants as k
 
 
-T, gamma_star = fn.converge()
+T, gamma_s = f_a.converge()
 
-print('T* =', T)
-print('γ* =', gamma_star)
+# print('T* =', T)
+# print('γ* =', gamma_s)
 
-
-'''for gamma in k.gamma_e:
-	M_e = Symbol('M_e')
-	
+for gamma in k.gamma_e:
+	fn = f_a.A_eq_g(gamma, gamma_s)
+	c = int(((gamma - 1.2) * 100))
 	for A in k.A_ratio:
-		print(A)'''
+		f = f_a.A_eq_A(A, fn)
+		M = nsolve(f, 10)
+		k.y_data[(int(A - 1), c)] = M
+
+# print(k.data)
+
+data = np.concatenate([k.A_values, k.y_data], axis=1)
+# print(data)
+
+np.savetxt('a_data.csv', data, delimiter=',')
+
+
+
+
+# plt.plot(k.A_ratio, k.y_data[0, :])
+# plt.show()

@@ -41,20 +41,26 @@ def T_ratio(gamma_star, T_0 = 3_200):
 	return T_0 / (1 + ((gamma_star - 1) / 2))
 
 
-x = 'γ*'
-
-
-def A_eq():
+def A_eq_g(gam_e=1.2, gam_s=1.1758101459676122):
 	g_e = Symbol('γₑ')
-	g_s = Symbol('g_s')
+	g_s = Symbol('γ*')
 	A_r = Symbol('Aₑ/A*')
-	M_e = Symbol('M_e')
-	fn = Eq(
-			(sqrt(g_s / g_e)) * (1 / M_e) * (1 + ((g_e - 1) / 2) * M_e**2)**((g_e + 1) / (2 * (g_e - 1))) *
-			((g_s + 1) / 2)**(-(g_s + 1) / (2 * (g_s - 1))) - A_r
-			)
-	return fn
+	M_e = Symbol('Mₑ')
+	e1 = sqrt(g_s / g_e)
+	e2 = 1 / M_e
+	e3 = (1 + ((g_e - 1) / 2) * M_e**2)**((g_e + 1) / (2 * (g_e - 1)))
+	e4 = ((g_s + 1) / 2)**((g_s + 1) / (2 * (g_s - 1)))
+	eq = (e1 * e2 * e3) / e4 - A_r
+	eq = eq.subs([(g_e, gam_e), (g_s, gam_s)])
+	return eq
+
+
+fn = A_eq_g()
+# print(fn)
+
+def A_eq_A(A_ratio, eq=fn):
+	return eq.subs([('Aₑ/A*', A_ratio)])
 
 
 
-
+A_eq_A(1, fn)
