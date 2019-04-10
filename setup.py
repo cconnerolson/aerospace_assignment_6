@@ -7,5 +7,5 @@ setup(name='aerospace_assignment_6',
 	author='Conner Olson',
 	author_email='cconnerolson@gmail.com',
 	license='MIT',
-	packages=['pandas', 'matplotlib', 'numpy'],
+	packages=['pandas', 'matplotlib', 'numpy', 'sympy'],
 	zip_safe=False)

@@ -1,3 +1,15 @@
+from sympy import *
+
+def converge(T_jj = 3000, d_T = 1, d_gamma = 1):
+	gamma_jj = schomate(T_jj)
+	while d_T > 0.01 or d_gamma > 0.01:
+		T_ii = T_ratio(gamma_jj)
+		gamma_ii = schomate(T_ii)
+		d_T, d_gamma = abs((T_ii - T_jj) / T_jj), abs((gamma_ii - gamma_jj) / gamma_jj)
+		T_jj, gamma_jj = T_ii, gamma_ii
+	return(T_ii, gamma_ii)
+
+
 def schomate(T):
 	"""
 	Shchomate equation to calculate specific heat of water vapor for a given temperature T.
@@ -29,11 +41,20 @@ def T_ratio(gamma_star, T_0 = 3_200):
 	return T_0 / (1 + ((gamma_star - 1) / 2))
 
 
-def converge(T_jj = 3000, d_T = 1, d_gamma = 1):
-	gamma_jj = schomate(T_jj)
-	while d_T > 0.01 or d_gamma > 0.01:
-		T_ii = T_ratio(gamma_jj)
-		gamma_ii = schomate(T_ii)
-		d_T, d_gamma = abs((T_ii - T_jj) / T_jj), abs((gamma_ii - gamma_jj) / gamma_jj)
-		T_jj, gamma_jj = T_ii, gamma_ii
-	return(T_ii, gamma_ii)
+x = 'γ*'
+
+
+def A_eq():
+	g_e = Symbol('γₑ')
+	g_s = Symbol('g_s')
+	A_r = Symbol('Aₑ/A*')
+	M_e = Symbol('M_e')
+	fn = Eq(
+			(sqrt(g_s / g_e)) * (1 / M_e) * (1 + ((g_e - 1) / 2) * M_e**2)**((g_e + 1) / (2 * (g_e - 1))) *
+			((g_s + 1) / 2)**(-(g_s + 1) / (2 * (g_s - 1))) - A_r
+			)
+	return fn
+
+
+
+
