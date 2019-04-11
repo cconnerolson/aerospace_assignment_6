@@ -3,7 +3,7 @@
 
 # Assignment:
 
-see /README.md/ files in directories for parts a-d for explanations & answers for their respective parts.
+see /PART_[n].txt/ files in directories for parts a-d for explanations & answers for their respective parts.
 
 
 
