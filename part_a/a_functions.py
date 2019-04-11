@@ -1,8 +1,8 @@
 from sympy import *
 
-def converge(T_jj = 3000, d_T = 1, d_gamma = 1):
+def converge_a(T_jj = 3000, d_T = 1, d_gamma = 1):
 	gamma_jj = schomate(T_jj)
-	while d_T > 0.01 or d_gamma > 0.01:
+	while d_T > 0.001 or d_gamma > 0.001:
 		T_ii = T_ratio(gamma_jj)
 		gamma_ii = schomate(T_ii)
 		d_T, d_gamma = abs((T_ii - T_jj) / T_jj), abs((gamma_ii - gamma_jj) / gamma_jj)
